@@ -1,0 +1,5 @@
+Django
+django-storages
+wagtail
+zappa
+psycopg2
