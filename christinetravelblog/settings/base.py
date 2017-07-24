@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+
     'collectfaster',
     'django.contrib.staticfiles',
     'storages'
@@ -120,12 +121,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 # Boto/S3 Static file storage setup
+COLLECTFAST_THREADS = 20
+AWS_PRELOAD_METADATA = True
 
 STATICFILES_STORAGE = 'collectfaster.backends.boto3.S3Boto3StaticStorage'
 DEFAULT_FILE_STORAGE = 'collectfaster.backends.boto3.S3Boto3MediaStorage'
 AWS_AUTO_CREATE_BUCKET = True
-AWS_STORAGE_BUCKET_NAME = 'ChristineBlogStatic'
+AWS_STORAGE_BUCKET_NAME = 'christineblogstatic'
 AWS_IS_GZIPPED = True
+AWS_S3_HOST = 's3-us-east-1.amazonaws.com'
+
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
 
@@ -138,11 +143,13 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = '/static'
 # STATIC_URL = '/static/'
 STATIC_URL = 'https://%s/%s/%s/' % (AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME, STATICFILES_LOCATION)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/media'
 MEDIA_URL = '/media/'
 
 
